@@ -6,7 +6,7 @@ const StatusCodes =  require("http-status-codes")
 module.exports= function validationMiddleware(schema){
     return (req,res,next)=>{
         try{
-            console.log(req.body)
+            console.log(req.body.email)
             // return
         schema.parse(req.body)
         next()
