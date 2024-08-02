@@ -6,8 +6,8 @@ const StatusCodes =  require("http-status-codes")
 module.exports= function validationMiddleware(schema){
     return (req,res,next)=>{
         try{
-            console.log('====req',req.body)
-
+            console.log(req.body)
+            // return
         schema.parse(req.body)
         next()
         }catch(error){

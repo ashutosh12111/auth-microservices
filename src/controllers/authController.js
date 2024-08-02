@@ -7,6 +7,7 @@ var jwt = require('jsonwebtoken');
 exports.registerExpress = async (req, res) => {
     try {
 
+
         let getUser = await User.findOne({
             email: req.body.email
         });
@@ -82,32 +83,17 @@ exports.login = async(req,res)=>{
     }
 }
 
-exports.verifyToken = async(req,res)=>{
+exports.verifyToken = async(token)=>{
     try{
-
-        let token = req.headers['authorization']
-        token = token.split(" ")[1];
         let jwtsecret = process.env.JWT_SECRET_KEY;
-       if(jwt.verify(token,jwtsecret)){
-            res.status(200).json({
-                status:200,
-                message:"Sucess",
-                body:{
-                    isVerfied:true,
-                }
-            })
+       let response =  jwt.verify(token,jwtsecret)
+       if(response){
+           return response
        }else{
-             res.status(403).json({
-                status:403,
-                message:"Unverified",
-                body:{
-                    isVerfied:false,
-                    
-                }
-            })
+      return false
        }
     }catch(err){
-        console.log(err)
+        return false
     }
 
 }

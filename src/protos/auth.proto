@@ -6,10 +6,12 @@ package auth;
 service AuthService {
     rpc Register(RegisterRequest) returns (AuthResponse){}
     rpc Login(LoginRequest) returns (AuthResponse){}
+    rpc VerifyToken(TokenRequest) returns(TokenResponse){}
+    rpc getUserDetail(TokenRequest) returns(UserResponse){}
 }
 
 message AuthResponse{
-    bool sucess = 1;
+    string success = 1;
     string message = 2;
 }
 
@@ -21,5 +23,22 @@ message LoginRequest{
    string email= 1;
     string password =2;
 }
+message TokenRequest{
+    string token = 1;
+}
+message TokenResponse{
+    bool isValid = 1;
+    string email = 2;
+    string message = 3;
+}
+message UserData {
+    int32 id = 1;
+    string email = 2;
+    bool isValid = 3;
+}
+message UserResponse {
+    bool status = 1;
+    string message = 2;
+    UserData userData = 3;
 
-
+}
